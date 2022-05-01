@@ -1,0 +1,186 @@
+﻿<Window x:Class="Storehouse.View.WinUserEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Пользователь" MinHeight="480" Width="300"
+        WindowStartupLocation="CenterScreen"
+         SizeToContent="Height"
+        Loaded="WinUserEdit_OnLoaded"
+        >
+    <DockPanel Margin="5">
+        <Button DockPanel.Dock="Bottom"
+                Margin="5"
+                Click="ButtonBaseSave_OnClick">
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Storehouse;component/Images/i16/disk-black.png"
+                           Margin="5,0"/>
+                    <TextBlock Text="СОХРАНИТЬ"/>
+                    </DockPanel>
+            </Button.Content>
+            </Button>
+        <Separator
+                                Margin="5"
+                                Background="DarkBlue"
+                                BorderBrush="DarkBlue"
+                                DockPanel.Dock="Bottom" />
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       VerticalAlignment="Center"
+                   Text="Роль"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <ComboBox Grid.Column="1"
+                      Grid.Row="0"
+                      Margin="5"
+                      SelectedIndex="{Binding Role}"
+                      FontWeight="DemiBold">
+                    <ComboBoxItem Content="Специалист"
+                                  Foreground="DarkGreen"/>
+                    <ComboBoxItem Content="Руководитель"
+                                  Foreground="DarkBlue"/>
+                </ComboBox>
+           
+            <TextBlock Grid.Column="0"
+                       Grid.Row="1"
+                       VerticalAlignment="Center"
+                   Text="Фамилия"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <TextBox Text="{Binding LastName}"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                 VerticalAlignment="Center"
+                 Margin="5"
+                     Padding="3,1"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="2"
+                       Text="Имя"
+                       FontWeight="DemiBold"
+                       FontStyle="Italic"
+                       Foreground="DarkBlue"
+                       Margin="5"
+                       VerticalAlignment="Center"/>
+            <TextBox Text="{Binding FirstName}"
+                     Grid.Column="1"
+                     Grid.Row="2"
+                     VerticalAlignment="Center"
+                 Margin="5"/>
+            <TextBlock Text="Отчество"
+                       FontWeight="DemiBold"
+                       FontStyle="Italic"
+                       Foreground="DarkBlue"
+                       Margin="5"
+                       Grid.Column="0"
+                       Grid.Row="3"
+                       VerticalAlignment="Center"/>
+            <TextBox Text="{Binding MiddleName}"
+                     VerticalAlignment="Center"
+                     Margin="5"
+                     Grid.Column="1"
+                     Grid.Row="3"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="4"
+                       VerticalAlignment="Center"
+                   Text="Должность"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <TextBox Text="{Binding Post}"
+                     Grid.Column="1"
+                     Grid.Row="4"
+                     VerticalAlignment="Center"
+                     Margin="5"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="5"
+                       VerticalAlignment="Center"
+                   Text="Подразделение"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <ComboBox Name="CbxDepartments"
+                      DisplayMemberPath="Name"
+                SelectedItem="{Binding Department}"
+                     Grid.Column="1"
+                     Grid.Row="5"
+                     VerticalAlignment="Center"
+                     Margin="5"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="6"
+                       VerticalAlignment="Center"
+                   Text="Телефон"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <TextBox Text="{Binding Phone}"
+                     Grid.Column="1"
+                     Grid.Row="6"
+                     VerticalAlignment="Center"
+                     Margin="5"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="7"
+                       VerticalAlignment="Center"
+                   Text="Email"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <TextBox Text="{Binding Email}"
+                     Grid.Column="1"
+                     Grid.Row="7"
+                     VerticalAlignment="Center"
+                     Margin="5"/>
+            <TextBlock Grid.Column="0"
+                       Grid.Row="8"
+                       VerticalAlignment="Center"
+                   Text="Заблокирован"
+                   FontWeight="DemiBold"
+                   FontStyle="Italic"
+                   Foreground="DarkBlue"
+                   Margin="5"/>
+            <CheckBox IsChecked="{Binding IsLocked}"
+                     Grid.Column="1"
+                     Grid.Row="8"
+                     VerticalAlignment="Center"
+                     Margin="5"/>
+            
+        </Grid>
+        <Button DockPanel.Dock="Top"
+                Margin="5"
+             
+                VerticalAlignment="Bottom"
+                Click="ButtonBasePasswordReset_OnClick"
+                >
+            <Button.Content>
+                <DockPanel>
+                    <Image Source="/Storehouse;component/Images/i16/key--minus.png"
+                           Margin="5,0"/>
+                    <TextBlock Text="Сбросить пароль"/>
+                    </DockPanel>
+                </Button.Content>
+            </Button>
+    </DockPanel>
+</Window>

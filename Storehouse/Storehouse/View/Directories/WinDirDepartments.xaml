@@ -1,0 +1,81 @@
+﻿<Window
+    x:Class="Storehouse.View.Directories.WinDirDepartments"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Справочник подразделений"
+    Width="525"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <DockPanel Margin="5">
+        <Menu
+            Name="mn_main"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top">
+
+            <MenuItem Click="_add_Record"
+                      >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/plus.png" />
+                        <TextBlock Text="Создать"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="_editRecord"
+                      >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/tool_pencil.png" />
+                        <TextBlock Text="Редактировать"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="_delRecord"
+                      >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/minus.png" />
+                        <TextBlock Text="Удалить"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+
+        </Menu>
+
+        <DataGrid
+            Name="DgrCatalog"
+            Margin="5"
+            KeyUp="dgr_catalog_KeyUp"
+            MouseDoubleClick="dgr_catalog_MouseDoubleClick"
+           >
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                   
+                    Binding="{Binding Path=Name}"
+                    Header="Название">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="5,0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                   
+                    Binding="{Binding Path=Floor}"
+                    Header="Этаж">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="5,0"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

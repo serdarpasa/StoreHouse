@@ -1,0 +1,295 @@
+﻿<UserControl xmlns:Controls="clr-namespace:Storehouse.Controls"  x:Class="Storehouse.Controls.UcTransactions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             Loaded="UcArrivals_OnLoaded">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom"
+                   Margin="-2,0,-2,-2">
+            <StatusBarItem MinHeight="20"
+                           >
+                <DockPanel>
+                <TextBlock
+                    Text="Записей: "
+                    FontWeight="DemiBold"/>
+                    <TextBlock Name="TblcRecordCount"
+                               Foreground="DarkBlue"
+                               FontWeight="DemiBold"/>
+                    </DockPanel>
+                </StatusBarItem>
+            <Separator/>
+            <StatusBarItem MinHeight="20"
+                           >
+                <DockPanel>
+                    <TextBlock
+                    Text="На сумму: "
+                    FontWeight="DemiBold"/>
+                    <TextBlock Name="TblcTotalPrice"
+                               Foreground="DarkGreen"
+                               FontWeight="DemiBold"/>
+                </DockPanel>
+            </StatusBarItem>
+
+        </StatusBar>
+        <Border DockPanel.Dock="Top"
+                Margin="2"
+                BorderBrush="Silver"
+                BorderThickness="1"
+                CornerRadius="2"
+                VerticalAlignment="Top"
+                Padding="5"
+                Background="White">
+            <DockPanel HorizontalAlignment="Left">
+                <Image Source="/Storehouse;component/Images/i16/filter.png"
+                       VerticalAlignment="Center"
+                       Margin="5"/>
+                <Controls:UcFiltrDate x:Name="DtpFilter"
+                                      SelectedDateChanged="DtpFilter_OnSelectedDateChanged"/>
+                <Grid VerticalAlignment="Stretch"
+                      Margin="5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="0"
+                               Text="МОЛ"
+                               Foreground="DarkBlue"
+                               FontWeight="DemiBold"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Visibility="{Binding Visibility, ElementName=DgrColUser}"/>
+                    <TextBlock Grid.Column="0"
+                               Grid.Row="1"
+                               Text="Сотрудник"
+                               Foreground="DarkBlue"
+                               FontWeight="DemiBold"
+                               VerticalAlignment="Center"
+                               FontSize="12" Visibility="{Binding Visibility, ElementName=DgrColEmployeer}"/>
+                    <DockPanel Grid.Column="1"
+                               Grid.Row="0"
+                               VerticalAlignment="Center">
+                        <Button Style="{DynamicResource ButtonCross}" DockPanel.Dock="Right"
+                                Click="ButtonUsersFilterReset_OnClick"
+                                Visibility="{Binding Visibility, ElementName=DgrColUser}"/>
+                        <ComboBox Name="CbxUsers"
+                                  Width="225" DockPanel.Dock="Left"
+                                  VerticalAlignment="Center"
+                                  DisplayMemberPath="FIO_Full"
+                                  FontSize="12"
+                                  SelectionChanged="Cbx_OnSelectionChanged"
+                                  Visibility="{Binding Visibility, ElementName=DgrColUser}"/>
+                        
+                    </DockPanel>
+                    <DockPanel Grid.Column="1"
+                               Grid.Row="1"
+                               VerticalAlignment="Center">
+                        <Button Style="{DynamicResource ButtonCross}" DockPanel.Dock="Right"
+                                Click="ButtonUserFilterReset_OnClick"
+                                Visibility="{Binding Visibility, ElementName=DgrColEmployeer}"/>
+                        <ComboBox Name="CbxEmployeers"
+                                  Width="225" DockPanel.Dock="Left"
+                                  VerticalAlignment="Center"
+                                  DisplayMemberPath="FIO_Full"
+                                  FontSize="12"
+                                  SelectionChanged="Cbx_OnSelectionChanged"
+                                  Visibility="{Binding Visibility, ElementName=DgrColEmployeer}"/>
+
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+            
+        </Border>
+        <Menu
+            Name="mn_main"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top">
+
+            <MenuItem Click="_addRecord"
+                      >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/plus.png" />
+                        <TextBlock Text="Создать"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="_editRecord"
+                      >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/tool_pencil.png" />
+                        <TextBlock Text="Редактировать"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="_delRecord"
+                      >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/minus.png" />
+                        <TextBlock Text="Удалить"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem 
+                      Click="MenuItemPrint_OnClick" >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/printer.png" />
+                        <TextBlock Text="Печать"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+
+        </Menu>
+        <Grid DockPanel.Dock="Top"
+                      Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0"
+                    Grid.Row="0" Style="{DynamicResource FormattedBorder}">
+                <DataGrid Name="DgrTransactions"
+                          MouseDoubleClick="DgrTransactions_OnMouseDoubleClick"
+                          SelectionChanged="DgrTransactions_OnSelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}"
+                                            Header="Дата">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,1"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding User.FIO_Short}"
+                                            Header="МОЛ"
+                                            x:Name="DgrColUser">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,1"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Employeer.FIO_Short}"
+                                            Header="Сотрудник"
+                                            x:Name="DgrColEmployeer">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,1"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding TotalPrice, StringFormat=\{0:N2\}}"
+                                    Header="Сумма">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                </Border>
+            <Border Grid.Column="1"
+                    Grid.Row="0" Style="{DynamicResource FormattedBorder}">
+                <DataGrid Name="DgrDetails"
+                      >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Good.Category.Name}"
+                                        Header="Категория">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Good.Code}"
+                                    Header="Инвентарный">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Good.Name}"
+                                    Header="Наименование">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="MaxWidth" Value="225"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Amount}"
+                                    Header="Количество">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Good.Unit}"
+                                   >
+                            <DataGridTextColumn.Header>
+                                <DockPanel HorizontalAlignment="Center">
+                                    <TextBlock DockPanel.Dock="Bottom" Text="измерения"/>
+                                    <TextBlock DockPanel.Dock="Top" Text="Ед." HorizontalAlignment="Center"/>
+                                </DockPanel>
+                            </DataGridTextColumn.Header>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Good.Price, StringFormat=\{0:N2\}}"
+                                    Header="Цена">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding TotalPrice, StringFormat=\{0:N2\}}"
+                                    Header="Сумма">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
+
+                    </DataGrid.Columns>
+
+
+
+                </DataGrid>
+            </Border>
+
+        </Grid>
+    </DockPanel>
+</UserControl>

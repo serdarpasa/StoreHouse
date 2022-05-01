@@ -1,0 +1,238 @@
+﻿<UserControl
+    x:Class="Storehouse.Controls.UcFiltrDate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    mc:Ignorable="d">
+
+    <Border
+        Padding="2"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Background="White"
+        BorderThickness="1,1,2,2"
+        BorderBrush="Silver"
+        CornerRadius="2">
+        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Name="lb_mesyc"
+                    Grid.Column="1"
+                    Margin="3,1"
+                    HorizontalAlignment="Center"
+                    Text="мес"
+                    FontSize="10"
+                    FontWeight="Bold" />
+                <TextBlock
+                    Name="lb_kvart"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="3,1"
+                    Text="кв."
+                    FontSize="10"
+                    FontWeight="Bold" />
+                <TextBlock
+                    Name="lb_god"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Margin="3,1"
+                    HorizontalAlignment="Center"
+                    Text="год"
+                    FontSize="10"
+                    FontWeight="Bold" />
+                <RadioButton
+                    Name="rbtn_drugoe"
+                    Grid.Column="4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_drugoe_Checked"
+                    Unchecked="rbtn_drugoe_Unchecked"
+                    Visibility="Hidden" />
+                <Label
+                    Name="lb_drugoe"
+                    Grid.Column="4"
+                    Padding="3,1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="другое"
+                    FontSize="10"
+                    FontWeight="Bold" />
+
+                <Label
+                    Name="lb_tekuschiy"
+                    Grid.Row="1"
+                    Padding="3,1"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="текущий"
+                    FontSize="10"
+                    FontWeight="Bold" />
+                <RadioButton
+                    Name="rbtn_tm"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_tm_Checked"
+                    Unchecked="rbtn_tm_Unchecked" Padding="0" />
+                <RadioButton
+                    Name="rbtn_tk"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_tk_Checked"
+                    Unchecked="rbtn_tk_Unchecked" Padding="0" />
+                <RadioButton
+                    Name="rbtn_tg"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_tg_Checked"
+                    Unchecked="rbtn_tg_Unchecked" Padding="0" />
+
+
+                <DockPanel
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    HorizontalAlignment="Left">
+                    <Label
+                        MinWidth="25"
+                        Padding="0"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Right"
+                        Content="с "
+                        FontSize="10"
+                        FontWeight="Bold" 
+                        />
+                    <DatePicker
+                        Name="dtp_begin"
+                        Width="100"
+                        Margin="2,1"
+                        Padding="2,0"
+                        FontSize="12"
+                       
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        CalendarClosed="dtp_CalendarClosed"
+                        KeyUp="dtp_KeyUp"
+                        SelectedDateChanged="dtp_begin_SelectedDateChanged"
+                       />
+                </DockPanel>
+                <Label
+                    Name="lb_pred"
+                    Grid.Row="2"
+                    Padding="3,1"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="предыдущий"
+                    FontSize="10"
+                    FontWeight="Bold" />
+                <RadioButton
+                    Name="rbtn_pm"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_pm_Checked"
+                    Unchecked="rbtn_pm_Unchecked" Padding="0" />
+                <RadioButton
+                    Name="rbtn_pk"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_pk_Checked"
+                    Unchecked="rbtn_pk_Unchecked" Padding="0" />
+
+
+                <RadioButton
+                    Name="rbtn_pg"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="rbtn_pg_Checked"
+                    Unchecked="rbtn_pg_Unchecked" Padding="0" />
+                
+                <DockPanel
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+
+                    <Label
+                        MinWidth="25"
+                        Padding="0"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="по"
+                        FontSize="10"
+                        FontWeight="Bold" 
+                        HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Right"/>
+                    <DatePicker
+                        Name="dtp_end"
+                        Width="100"
+                        MinHeight="15"
+                        Margin="2,1"
+                        Padding="2,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        CalendarClosed="dtp_CalendarClosed"
+                        KeyUp="dtp_KeyUp"
+                        SelectedDateChanged="dtp_end_SelectedDateChanged"
+                       
+                        FontSize="12"/>
+                </DockPanel>
+            </Grid>
+
+        </DockPanel>
+    </Border>
+
+</UserControl>

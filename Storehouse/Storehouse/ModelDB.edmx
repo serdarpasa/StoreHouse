@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Storehouse.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="80" />
+          <Property Name="Floor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="int" />
+        </EntityType>
+        <EntityType Name="Employeers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Post" Type="nvarchar" MaxLength="250" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="80" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="20" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionId" Type="int" Nullable="false" />
+          <Property Name="GoodsId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="EmployeerId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Storehouse.dbo.Balances" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="GoodsId" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="EmployeerId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="GoodsId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="real" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="20" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="TotalPrice" Type="real" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="150" />
+          <Property Name="EmployeerId" Type="int" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="80" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DepatmentUserId" Type="int" />
+        </EntityType>
+        <Association Name="FK_Goods_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Goods">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionDetails_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionDetails">
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionDetails_Transactions">
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transactions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionDetails">
+              <PropertyRef Name="TransactionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Employeers">
+          <End Role="Employeers" Type="Self.Employeers" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="EmployeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_User">
+          <End Role="Employeers" Type="Self.Employeers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+          <End Role="Employeers" Type="Self.Employeers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employeers">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StorehouseStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employeers" EntityType="Self.Employeers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Balances].[Type] AS [Type], 
+[Balances].[GoodsId] AS [GoodsId], 
+[Balances].[Amount] AS [Amount], 
+[Balances].[Code] AS [Code], 
+[Balances].[CategoryId] AS [CategoryId], 
+[Balances].[Unit] AS [Unit], 
+[Balances].[Price] AS [Price], 
+[Balances].[TotalPrice] AS [TotalPrice], 
+[Balances].[CategoryName] AS [CategoryName], 
+[Balances].[EmployeerId] AS [EmployeerId], 
+[Balances].[DepartmentId] AS [DepartmentId], 
+[Balances].[Name] AS [Name], 
+[Balances].[Date] AS [Date], 
+[Balances].[UserId] AS [UserId], 
+[Balances].[DepatmentUserId] AS [DepatmentUserId]
+FROM [dbo].[Balances] AS [Balances]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Goods_Categories" Association="Self.FK_Goods_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Goods" EntitySet="Goods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionDetails_Goods" Association="Self.FK_TransactionDetails_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionDetails_Transactions" Association="Self.FK_TransactionDetails_Transactions">
+            <End Role="Transactions" EntitySet="Transactions" />
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Employeers" Association="Self.FK_Transactions_Employeers">
+            <End Role="Employeers" EntitySet="Employeers" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_User" Association="Self.FK_Transactions_User">
+            <End Role="Employeers" EntitySet="Employeers" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Departments" Association="Self.FK_Users_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employeers" EntitySet="Employeers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Storehouse" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="StorehouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Storehouse.Department" />
+          <EntitySet Name="Categories" EntityType="Storehouse.Category" />
+          <EntitySet Name="Goods" EntityType="Storehouse.Good" />
+          <AssociationSet Name="FK_Goods_Categories" Association="Storehouse.FK_Goods_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Good" EntitySet="Goods" />
+          </AssociationSet>
+          <EntitySet Name="TransactionDetails" EntityType="Storehouse.TransactionDetail" />
+          <AssociationSet Name="FK_TransactionDetails_Goods" Association="Storehouse.FK_TransactionDetails_Goods">
+            <End Role="Good" EntitySet="Goods" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+          </AssociationSet>
+          <EntitySet Name="Employeers" EntityType="Storehouse.Employeer" />
+          <AssociationSet Name="FK_Users_Departments" Association="Storehouse.FK_Users_Departments">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employeer" EntitySet="Employeers" />
+          </AssociationSet>
+          <EntitySet Name="Transactions" EntityType="Storehouse.Transaction" />
+          <AssociationSet Name="FK_Transactions_Employeers" Association="Storehouse.FK_Transactions_Employeers">
+            <End Role="Employeer" EntitySet="Employeers" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_User" Association="Storehouse.FK_Transactions_User">
+            <End Role="Employeer" EntitySet="Employeers" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionDetails_Transactions" Association="Storehouse.FK_TransactionDetails_Transactions">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+          </AssociationSet>
+          <EntitySet Name="Balances" EntityType="Storehouse.Balance" />
+        </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" />
+          <NavigationProperty Name="Employeers" Relationship="Storehouse.FK_Users_Departments" FromRole="Department" ToRole="Employeer" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Goods" Relationship="Storehouse.FK_Goods_Categories" FromRole="Category" ToRole="Good" />
+        </EntityType>
+        <EntityType Name="Good">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Category" Relationship="Storehouse.FK_Goods_Categories" FromRole="Good" ToRole="Category" />
+          <NavigationProperty Name="TransactionDetails" Relationship="Storehouse.FK_TransactionDetails_Goods" FromRole="Good" ToRole="TransactionDetail" />
+        </EntityType>
+        <Association Name="FK_Goods_Categories">
+          <End Type="Storehouse.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="Storehouse.Good" Role="Good" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Good">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TransactionDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="GoodsId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Good" Relationship="Storehouse.FK_TransactionDetails_Goods" FromRole="TransactionDetail" ToRole="Good" />
+          <NavigationProperty Name="Transaction" Relationship="Storehouse.FK_TransactionDetails_Transactions" FromRole="TransactionDetail" ToRole="Transaction" />
+        </EntityType>
+        <Association Name="FK_TransactionDetails_Goods">
+          <End Type="Storehouse.Good" Role="Good" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Storehouse.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Good">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Employeer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Post" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="Storehouse.FK_Users_Departments" FromRole="Employeer" ToRole="Department" />
+          <NavigationProperty Name="Transactions" Relationship="Storehouse.FK_Transactions_Employeers" FromRole="Employeer" ToRole="Transaction" />
+          <NavigationProperty Name="TransactionsUser" Relationship="Storehouse.FK_Transactions_User" FromRole="Employeer" ToRole="Transaction" />
+        </EntityType>
+        <Association Name="FK_Users_Departments">
+          <End Type="Storehouse.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Storehouse.Employeer" Role="Employeer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employeer">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="EmployeerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employeer" Relationship="Storehouse.FK_Transactions_Employeers" FromRole="Transaction" ToRole="Employeer" />
+          <NavigationProperty Name="User" Relationship="Storehouse.FK_Transactions_User" FromRole="Transaction" ToRole="Employeer" />
+          <NavigationProperty Name="TransactionDetails" Relationship="Storehouse.FK_TransactionDetails_Transactions" FromRole="Transaction" ToRole="TransactionDetail" />
+        </EntityType>
+        <Association Name="FK_Transactions_Employeers">
+          <End Type="Storehouse.Employeer" Role="Employeer" Multiplicity="1" />
+          <End Type="Storehouse.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="EmployeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_User">
+          <End Type="Storehouse.Employeer" Role="Employeer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Storehouse.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionDetails_Transactions">
+          <End Type="Storehouse.Transaction" Role="Transaction" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Storehouse.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Balance">
+          <Key>
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="GoodsId" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="EmployeerId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="GoodsId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Single" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TotalPrice" Type="Single" />
+          <Property Name="CategoryName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeerId" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="DepatmentUserId" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StorehouseStoreContainer" CdmEntityContainer="StorehouseEntities">
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="IsTypeOf(Storehouse.Department)">
+        <MappingFragment StoreEntitySet="Departments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(Storehouse.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Goods">
+      <EntityTypeMapping TypeName="IsTypeOf(Storehouse.Good)">
+        <MappingFragment StoreEntitySet="Goods">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(Storehouse.TransactionDetail)">
+        <MappingFragment StoreEntitySet="TransactionDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employeers">
+      <EntityTypeMapping TypeName="IsTypeOf(Storehouse.Employeer)">
+        <MappingFragment StoreEntitySet="Employeers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="IsTypeOf(Storehouse.Transaction)">
+        <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="EmployeerId" ColumnName="EmployeerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="Balances">
+            <EntityTypeMapping TypeName="Storehouse.Balance">
+              <MappingFragment StoreEntitySet="Balances">
+                <ScalarProperty Name="DepatmentUserId" ColumnName="DepatmentUserId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="EmployeerId" ColumnName="EmployeerId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ModelDB">
+        <EntityTypeShape EntityType="Storehouse.Department" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="Storehouse.Category" Width="1.5" PointX="9.75" PointY="4.625" />
+        <EntityTypeShape EntityType="Storehouse.Good" Width="1.5" PointX="7.625" PointY="4.625" />
+        <AssociationConnector Association="Storehouse.FK_Goods_Categories" />
+        <EntityTypeShape EntityType="Storehouse.TransactionDetail" Width="1.5" PointX="7.25" PointY="1.375" />
+        <AssociationConnector Association="Storehouse.FK_TransactionDetails_Goods" />
+        <EntityTypeShape EntityType="Storehouse.Employeer" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="Storehouse.FK_Users_Departments" />
+        <EntityTypeShape EntityType="Storehouse.Transaction" Width="1.5" PointX="5.25" PointY="4.5" />
+        <AssociationConnector Association="Storehouse.FK_Transactions_Employeers" />
+        <AssociationConnector Association="Storehouse.FK_Transactions_User" />
+        <AssociationConnector Association="Storehouse.FK_TransactionDetails_Transactions" />
+        <EntityTypeShape EntityType="Storehouse.Balance" Width="1.5" PointX="0.75" PointY="5.75" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

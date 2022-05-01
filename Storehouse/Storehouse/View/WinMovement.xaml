@@ -1,0 +1,250 @@
+﻿<Window x:Class="Storehouse.View.WinMovement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Перемещение"  
+        WindowStartupLocation="CenterScreen"
+        Loaded="WinWriteOffEdit_OnLoaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Margin="0,5">
+            <MenuItem 
+                      Click="MenuItemPrint_OnClick" >
+                <MenuItem.Header>
+                    <DockPanel>
+                        <Image Source="/Storehouse;component/Images/i16/printer.png" />
+                        <TextBlock Text="Печать"/>
+                    </DockPanel>
+                </MenuItem.Header>
+            </MenuItem>
+
+        </Menu>
+        <Button DockPanel.Dock="Bottom"
+                Margin="5"
+                Click="ButtonBase_OnClick">
+            <Button.Content>
+                <DockPanel>
+                    <Image VerticalAlignment="Center"
+                           Margin="5" Source="/Storehouse;component/Images/i16/disk-black.png"/>
+                    <TextBlock Text="СОХРАНИТЬ И ВЫЙТИ"/>
+                </DockPanel>
+            </Button.Content>
+        </Button>
+        <Border DockPanel.Dock="Top" Style="{DynamicResource FormattedBorder}"
+                VerticalAlignment="Top">
+            <Grid HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0"
+                           Grid.Row="0"
+                           Text="Дата"
+                           FontWeight="DemiBold"
+                           Foreground="DarkBlue"
+                           Margin="5"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0"
+                           Grid.Row="1"
+                           Text="ТМЦ передаются"
+                           FontWeight="DemiBold"
+                           Foreground="DarkBlue"
+                           Margin="5"
+                           VerticalAlignment="Center"/>
+                <DatePicker Grid.Column="1"
+                            Grid.Row="0"
+                            MinWidth="75"
+                            VerticalAlignment="Center"
+                            Margin="5"
+                            SelectedDate="{Binding Date}"
+                            HorizontalAlignment="Left"/>
+                <ComboBox Grid.Column="1"
+                          Grid.Row="1"
+                          Name="CbxResponsibleFaces"
+                          DisplayMemberPath="FIO_Full"
+                          VerticalAlignment="Center"
+                          Margin="5"
+                          Width="225"
+                          SelectedItem="{Binding ResponsibleFace}"
+                          SelectionChanged="CbxResponsibleFaces_OnSelectionChanged"
+                          />
+            </Grid>
+        </Border>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    Grid.Row="0" Style="{DynamicResource FormattedBorder}">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <Image Margin="5" Source="/Storehouse;component/Images/i16/filter.png"
+                               HorizontalAlignment="Left"/>
+                        <TextBox Name="TbxFilter"
+                                 KeyUp="TbxFilter_OnKeyUp"
+                         TextChanged="TbxFilter_OnSelectionChanged"/>
+                        </DockPanel>
+                <DataGrid Name="DgrBalance"
+                      >
+                    <DataGrid.Columns>
+                      
+
+                        <DataGridTextColumn Binding="{Binding Code}"
+                                    Header="Инвентарный">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Наименование">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="MaxWidth" Value="225"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Amount}"
+                                    Header="Количество">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Unit}"
+                                   >
+                            <DataGridTextColumn.Header>
+                                <DockPanel HorizontalAlignment="Center">
+                                    <TextBlock DockPanel.Dock="Bottom" Text="измерения"/>
+                                    <TextBlock DockPanel.Dock="Top" Text="Ед." HorizontalAlignment="Center"/>
+                                </DockPanel>
+                            </DataGridTextColumn.Header>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Price, StringFormat=\{0:N2\}}"
+                                    Header="Цена">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                       
+
+
+                    </DataGrid.Columns>
+
+
+
+                </DataGrid>
+                    </DockPanel>
+            </Border>
+            <Border Grid.Column="2"
+                    Grid.Row="0" Style="{DynamicResource FormattedBorder}">
+                <DataGrid Name="DgrTransactionDetails"
+                      >
+                    <DataGrid.Columns>
+
+
+                        <DataGridTextColumn Binding="{Binding Good.Code}"
+                                    Header="Инвентарный">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Good.Name}"
+                                    Header="Наименование">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="MaxWidth" Value="225"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Amount}"
+                                    Header="Количество">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Good.Unit}"
+                                   >
+                            <DataGridTextColumn.Header>
+                                <DockPanel HorizontalAlignment="Center">
+                                    <TextBlock DockPanel.Dock="Bottom" Text="измерения"/>
+                                    <TextBlock DockPanel.Dock="Top" Text="Ед." HorizontalAlignment="Center"/>
+                                </DockPanel>
+                            </DataGridTextColumn.Header>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Good.Price, StringFormat=\{0:N2\}}"
+                                    Header="Цена">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+
+
+
+
+                    </DataGrid.Columns>
+
+
+
+                </DataGrid>
+            </Border>
+            
+                <Border Grid.Column="1" 
+                        Grid.Row="0"  
+                        Style="{DynamicResource FormattedBorder}" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                    <DockPanel>
+                    <Button Style="{DynamicResource CircleBlueRightButton}"
+                            DockPanel.Dock="Top"
+                            Click="ButtonAdd_OnClick"/>
+                        <TextBox Name="TbxCount" Width="50"
+                             PreviewTextInput="textBox_InputNumberFloat"
+                     PreviewKeyDown="_PreviewKeyDown"
+                             DockPanel.Dock="Top"/>
+                    <Button Style="{DynamicResource CircleBlueLeftButton}"
+                            DockPanel.Dock="Bottom"
+                            Click="Buttondel_OnClick"/>
+                </DockPanel>
+                    </Border>
+            
+        </Grid>
+    </DockPanel>
+</Window>

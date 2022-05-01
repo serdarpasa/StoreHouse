@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="Storehouse.Controls.UcGoodsHistory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             Loaded="UserControl_Loaded">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom"
+                   Margin="-2,0,-2,-2"
+                   >
+            <StatusBarItem MinHeight="20"
+                           >
+                <DockPanel >
+                    <TextBlock
+                    Text="Записей: "
+                    FontWeight="DemiBold"/>
+                    <TextBlock Name="TblcRecordCount"
+                               Foreground="DarkBlue"
+                               FontWeight="DemiBold"/>
+                </DockPanel>
+            </StatusBarItem>       
+            
+
+        </StatusBar>
+       
+        <Border DockPanel.Dock="Top"
+                Margin="2"
+                BorderBrush="Silver"
+                BorderThickness="1"
+                CornerRadius="2"
+                VerticalAlignment="Top"
+                Padding="5"
+                Background="White">
+            <DockPanel HorizontalAlignment="Left">
+                <Image Source="/Storehouse;component/Images/i16/filter.png"
+                       VerticalAlignment="Center"
+                       Margin="5"/>
+                <TextBox Name="TbxFilter"
+                         Width="225"
+                                 KeyUp="TbxFilter_OnKeyUp"
+                         TextChanged="TbxFilter_TextChanged"/>
+               
+                <Grid VerticalAlignment="Stretch"
+                      Margin="5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                </Grid>
+            </DockPanel>
+
+        </Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Style="{DynamicResource FormattedBorder}">
+                <DataGrid Name="DgrGoods"
+                      SelectionChanged="DgrGoods_SelectionChanged">
+                    <DataGrid.Columns>
+
+
+                        <DataGridTextColumn Binding="{Binding Code}"
+                                    Header="Инвентарный">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Наименование">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Setter Property="MaxWidth" Value="225"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Binding="{Binding Unit}"
+                                   >
+                            <DataGridTextColumn.Header>
+                                <DockPanel HorizontalAlignment="Center">
+                                    <TextBlock DockPanel.Dock="Bottom" Text="измерения"/>
+                                    <TextBlock DockPanel.Dock="Top" Text="Ед." HorizontalAlignment="Center"/>
+                                </DockPanel>
+                            </DataGridTextColumn.Header>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Price, StringFormat=\{0:N2\}}"
+                                    Header="Цена">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="5,0"/>
+                                    <Setter Property="TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
+
+                    </DataGrid.Columns>
+
+
+
+                </DataGrid>
+            </Border>
+            <Border Grid.Column="1" Style="{DynamicResource FormattedBorder}">
+                <DockPanel>
+                    <StatusBar DockPanel.Dock="Bottom">
+                        <StatusBarItem>
+                            <TextBlock Name="TblcBalance"
+                                       Foreground="DarkBlue"
+                                       FontWeight="Bold"
+                                       FontSize="12"/>
+                        </StatusBarItem>
+                    </StatusBar>
+                    <DataGrid Name="DgrGoodsHistory"
+                              DockPanel.Dock="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}"
+                                            Header="Дата">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5,1"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding TransactionTypeName}"
+                                   Header="Тип операции">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding EmployeerFirst}"
+                                   Header="МОЛ">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding EmployeerSecond}"
+                                   Header="Сотрудник">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Amount}"
+                                    Header="Количество">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5,0"/>
+                                        <Setter Property="TextAlignment" Value="Right"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

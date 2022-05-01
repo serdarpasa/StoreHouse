@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Storehouse.Controls.UcFiltrDate" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAAAIABEAAAQRAEAAECAgAAAAAAAAoBACJAAAA=</HashCode>
+      <FileName>Controls\UcFiltrDate.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Storehouse.Controls.UcGoodsHistory" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAgAAQAAAAAAAAAAAAAABAAgAAAAAAABCAAAAAAAA=</HashCode>
+      <FileName>Controls\UcGoodsHistory.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Storehouse.Controls.UcStore" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAgAAIEACBIAAEAAAEAAAAAgAEAAAAAACEEAAAABA=</HashCode>
+      <FileName>Controls\UcStore.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Storehouse.Controls.UcTransactions" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAgAAIAQCAYAAkAABEAAIEAgAIAEEAAAgAAAAAAAA=</HashCode>
+      <FileName>Controls\UcTransactions.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Storehouse.Employeer">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICDCMAQCCUAgEKQHBEWASAQHQEACASKCAQQsABUVAg=</HashCode>
+      <FileName>Model\Employeer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.Transaction">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAgAAQABIBQAAAAyADCAEQBABBQAACAIUxAg=</HashCode>
+      <FileName>Model\Transaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.TransactionDetail">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACKgAAAQAAKAMAAQCAAAACQBACCQACAAAAAAAAUAAE=</HashCode>
+      <FileName>Model\TransactionDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.Model.GoodsMovementHistory">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAEEAAAAAAAAACAAAAAAAEBAAAAAAAAAAA=</HashCode>
+      <FileName>Model\GoodsMovementHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.Model.TransactionItems">
+    <Position X="13" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAACAAAAACAAAQAAAAAABAAA=</HashCode>
+      <FileName>Model\TransactionItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.Model.TransactionsListItem">
+    <Position X="13.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAkAAAAAAAAAAAAAAAAQAABAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TransactionsListItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.reportViewer.wrTransaction">
+    <Position X="21.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAASAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>reportViewer\wrTransaction.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.reportViewer.wrTransactionsList">
+    <Position X="21.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAQAACAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>reportViewer\wrTransactionsList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.Export">
+    <Position X="10.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Export.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Storehouse.MainWindow">
+    <Position X="15" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinUserRegistration">
+    <Position X="15" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WinUserRegistration.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Windows.Controls.UserControl">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Data.Objects.DataClasses.EntityObject">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Object">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Window">
+    <Position X="18" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Storehouse.View.SplashScreen">
+    <Position X="13.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\SplashScreen.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinAbout">
+    <Position X="16" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinAbout.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinArrivalEdit">
+    <Position X="20.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAABIAAgEABAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinArrivalEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinCategoryEdit">
+    <Position X="19.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinCategoryEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinDepartmentEdit">
+    <Position X="15" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinDepartmentEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinGoodsAddToArrival">
+    <Position X="15.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAEQAAAAAAIQAAECAAAAAoAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>View\WinGoodsAddToArrival.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinHome">
+    <Position X="23.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAADAAAEAAIAAAAAAJIBAASFAAAIAAAIAAA=</HashCode>
+      <FileName>View\WinHome.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinMovement">
+    <Position X="25.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAQCAEAAAIAAAEAAAAIAYAAAAABBAAACAEAAABAA=</HashCode>
+      <FileName>View\WinMovement.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinPasswordChange">
+    <Position X="14.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAgAAAAAgAAgAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>View\WinPasswordChange.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinResponsibleFaceEdit">
+    <Position X="20.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAEAAAIAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinResponsibleFaceEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinUserEdit">
+    <Position X="25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAEAAAIAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinUserEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Storehouse.View.WinWriteOffEdit">
+    <Position X="25.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EABAAQCAAAAAIAAAEAAAAIAYAAAAABBAAACAEAAABAA=</HashCode>
+      <FileName>View\WinWriteOffEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
